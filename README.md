@@ -1,0 +1,1 @@
+opencps-notification-portlet
