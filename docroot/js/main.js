@@ -324,9 +324,11 @@ AUI.add(
 
 					_bindUI: function() {
 						var instance = this;
+						
+//						console.log("run _bindUI()");
 
 //						instance._bindMarkAllAsRead();
-						instance._bindMarkAsRead();
+//						instance._bindMarkAsRead();
 //						instance._bindNotificationsAction();
 //						instance._bindNextPageNotifications();
 //						instance._bindPreviousPageNotifications();
@@ -335,26 +337,46 @@ AUI.add(
 
 					_bindViewNotification: function() {
 						var instance = this;
+						
+//						console.log("run _bindViewNotification()");
 
 						var notificationsContainer = A.one(instance._notificationsContainer);
+						
+//						console.log("+++notificationsContainer:"+notificationsContainer);
 
 						var notificationsNode = notificationsContainer.one(instance._notificationsNode);
+						
+//						console.log("+++notificationsNode:"+notificationsNode);
 
 						if (notificationsNode) {
 							notificationsNode.delegate(
 								'click',
 								function(event) {
 									var currentTarget = event.currentTarget;
+									
+//									console.log("+++currentTarget:"+currentTarget);
 
 									var target = event.target;
+									
+//									console.log("+++currentTarget:"+target);
+//									
+//									console.log("+++target.hasClass('.mark-as-read'):"+target.hasClass('.mark-as-read'));
+//									
+//									console.log("+++target.ancestor('.mark-as-read'):"+target.ancestor('.mark-as-read'));
+//									
+//									console.log("+++target._node.tagName == 'A':"+target._node.tagName == 'A');
 
-									if (target.hasClass('.mark-as-read') || target.ancestor('.mark-as-read') || (target._node.tagName == 'A')) {
-										return;
-									}
+//									if (target.hasClass('.mark-as-read') || target.ancestor('.mark-as-read') || (target._node.tagName == 'A')) {
+//										return;
+//									}
 
 									var uri = currentTarget.attr('data-href');
+									
+//									console.log("+++uri:"+uri);
 
 									var markAsReadURL = currentTarget.attr('data-markAsReadURL');
+									
+//									console.log("+++markAsReadURL:"+markAsReadURL);
 
 									if (markAsReadURL) {
 										A.io.request(
@@ -363,6 +385,8 @@ AUI.add(
 												after: {
 													success: function() {
 														var responseData = this.get('responseData');
+														
+														console.log("+++responseData:"+responseData);
 
 														if (responseData.success) {
 															instance._redirect(uri);

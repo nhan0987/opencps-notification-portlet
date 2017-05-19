@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.UserNotificationEvent;
@@ -173,8 +172,9 @@ public class NotificationPortlet extends MVCPortlet {
 				jsonArray.put(entry);
 
 				if (!unreadUserNotificationEvent.isArchived()) {
-					unreadUserNotificationEventIds.add(unreadUserNotificationEvent
-							.getUserNotificationEventId());
+					unreadUserNotificationEventIds
+							.add(unreadUserNotificationEvent
+									.getUserNotificationEventId());
 				}
 			}
 		}
@@ -201,11 +201,16 @@ public class NotificationPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 
+		String result = StringPool.BLANK;
+
 		if (Validator.isNotNull(portalUserNotificationEvent)) {
 
 			UserNotificationFeedEntry userNotificationFeedEntry = UserNotificationManagerUtil
 					.interpret(StringPool.BLANK, portalUserNotificationEvent,
 							ServiceContextFactory.getInstance(resourceRequest));
+
+			// UserNotificationManagerUtil.interpret(selector,
+			// userNotificationEvent, serviceContext)
 
 			if (Validator.isNull(userNotificationFeedEntry)) {
 
@@ -225,35 +230,40 @@ public class NotificationPortlet extends MVCPortlet {
 			actionURL.setParameter(ActionRequest.ACTION_NAME, "markAsRead");
 
 			String actionDiv = StringPool.BLANK;
+			String body = StringPool.BLANK;
+			String timestamp = StringPool.BLANK;
 
 			actionDiv = StringUtil
 					.replace(_MARK_AS_READ_DIV, new String[] { "[$LINK$]",
 							"[$MARK_AS_READ_URL$]" },
 							new String[] { userNotificationFeedEntry.getLink(),
 									actionURL.toString() });
+			
+			String stringDate = "dd/MM/yyyy HH:mm";
+			
+			
+			//EEEE, dd MMMMM , yyyy 'at' h:mm a
 
 			Format simpleDateFormat = FastDateFormatFactoryUtil
-					.getSimpleDateFormat("EEEE, MMMMM dd, yyyy 'at' h:mm a",
+					.getSimpleDateFormat(stringDate,
 							themeDisplay.getLocale(),
 							themeDisplay.getTimeZone());
 
-			return StringUtil
-					.replace(
-							ContentUtil
-									.get(PortletPropsValues.USER_NOTIFICATION_ENTRY),
+			body = userNotificationFeedEntry.getBody();
+//			timestamp = Time.getRelativeTimeDescription(
+//					portalUserNotificationEvent.getTimestamp(),
+//					themeDisplay.getLocale(), themeDisplay.getTimeZone());
+
+			timestamp = simpleDateFormat.format(portalUserNotificationEvent.getTimestamp());
+
+			result = StringUtil
+					.replace(ContentUtil
+							.get(PortletPropsValues.USER_NOTIFICATION_ENTRY),
 							new String[] { "[$ACTION_DIV$]", "[$BODY$]",
-									"[$TIMESTAMP$]" },
-							new String[] {
-									actionDiv,
-									userNotificationFeedEntry.getBody(),
-									Time.getRelativeTimeDescription(
-											portalUserNotificationEvent
-													.getTimestamp(),
-											themeDisplay.getLocale(),
-											themeDisplay.getTimeZone()),
-									simpleDateFormat
-											.format(portalUserNotificationEvent
-													.getTimestamp()), });
+									"[$TIMESTAMP$]" }, new String[] {
+									actionDiv, body, timestamp});
+
+			return result;
 		}
 
 		return StringPool.BLANK;

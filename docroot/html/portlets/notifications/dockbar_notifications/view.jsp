@@ -51,7 +51,8 @@
 <%-- 							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" /> --%>
 						</liferay-portlet:renderURL>
 
-						<span><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="notifications" /> (<span class="count"></span>)</a></span>
+						<span class="header-message"><liferay-ui:message key="notifications" /> (<span class="count"></span>)</span>
+						<span class="header-viewAll"><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="view-all" /></a></span>
 
 <%-- 						<span class="mark-all-as-read"><a class="hide" href="javascript:;"><liferay-ui:message key="mark-as-read" /></a></span> --%>
 					</div>
@@ -61,7 +62,7 @@
 			</ul>
 		</div>
 
-		<aui:script use="aui-base,liferay-plugin-dockbar-notifications">
+		<aui:script use="aui-base,liferay-plugin-dockbar-notifications,liferay-plugin-notifications-list">
 			
 			var nonActionableNotificationsList = new Liferay.NotificationsList(
 				{

@@ -3,11 +3,13 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>opencps-notification</portlet-name>
-		<icon>/icon.png</icon>
+		<portlet-name>113</portlet-name>
+		<poller-processor-class>org.opencps.notification.dockbarnotifications.poller.DockbarNotificationsPollerProcessor</poller-processor-class>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
-		<css-class-wrapper>opencps-notification-portlet</css-class-wrapper>
+		<css-class-wrapper>113-opencps-notification-portlet</css-class-wrapper>
+<!-- 		<add-default-resource>true</add-default-resource> -->
+<!-- 		<system>true</system> -->
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

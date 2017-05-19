@@ -3,6 +3,6 @@
 
 <display>
 	<category name="category.sample">
-		<portlet id="opencps-notification" />
+		<portlet id="113" />
 	</category>
 </display>

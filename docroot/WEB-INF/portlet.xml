@@ -2,9 +2,13 @@
 
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
-		<portlet-name>opencps-notification</portlet-name>
+		<portlet-name>113</portlet-name>
 		<display-name>Opencps Notification</display-name>
 		<portlet-class>org.opencps.notification.portlet.NotificationPortlet</portlet-class>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
 		<init-param>
 			<name>view-template</name>
 			<value>/html/portlets/notifications/dockbar_notifications/view.jsp</value>
@@ -17,6 +21,7 @@
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
+		<resource-bundle>content.Language_vi</resource-bundle>
 		<portlet-info>
 			<title>Opencps Notification</title>
 			<short-title>Opencps Notification</short-title>
