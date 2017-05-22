@@ -40,4 +40,35 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	<portlet>
+		<portlet-name>114</portlet-name>
+		<display-name>Manage Notification</display-name>
+		<portlet-class>org.opencps.notification.portlet.NotificationPortlet</portlet-class>
+		<init-param>
+			<name>view-manage-notifications</name>
+			<value>/manage_notifications/view</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content.Language_vi</resource-bundle>
+		<portlet-info>
+			<title>Manage Notification</title>
+			<short-title>Manage Notification</short-title>
+			<keywords>Manage Notification</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
 </portlet-app>

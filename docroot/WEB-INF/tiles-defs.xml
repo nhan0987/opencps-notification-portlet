@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+
+
+	<!-- My Account -->
+
+	<definition name="portlet.manage_notification" extends="portlet" />
+
+	<definition name="portlet.manage_notification.view" extends="portlet.manage_notification">
+		<put name="portlet_content" value="/html/portlet/managenotifications/view.jsp" />
+	</definition>
+
+	
+</tiles-definitions>
