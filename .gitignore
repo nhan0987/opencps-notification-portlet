@@ -20,3 +20,7 @@ hs_err_pid*
 \.tern-project
 
 docroot/WEB-INF/classes/
+
+docroot/css/\.sass-cache/
+
+ivy\.xml\.MD5
