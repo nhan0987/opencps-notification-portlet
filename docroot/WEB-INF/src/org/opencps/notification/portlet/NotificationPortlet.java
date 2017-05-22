@@ -153,7 +153,7 @@ public class NotificationPortlet extends MVCPortlet {
 
 		unreadUserNotificationEvents = UserNotificationEventLocalServiceUtil
 				.getArchivedUserNotificationEvents(themeDisplay.getUserId(),
-						false, start, end);
+						false, 0, 5);
 
 		total = UserNotificationEventLocalServiceUtil
 				.getArchivedUserNotificationEventsCount(

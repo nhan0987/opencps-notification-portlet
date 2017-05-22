@@ -13,6 +13,13 @@
 		<add-default-resource>true</add-default-resource>
 		<system>true</system>
 	</portlet>
+	<portlet>
+		<portlet-name>114</portlet-name>
+		<struts-path>manage_notifications</struts-path>
+		<header-portlet-css>/css/main.css</header-portlet-css>
+		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
+		<css-class-wrapper>114-manage-notification-portlet</css-class-wrapper>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
@@ -29,4 +36,6 @@
 		<role-name>user</role-name>
 		<role-link>User</role-link>
 	</role-mapper>
+
+	
 </liferay-portlet-app>
