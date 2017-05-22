@@ -5,11 +5,13 @@
 	<portlet>
 		<portlet-name>113</portlet-name>
 		<poller-processor-class>org.opencps.notification.dockbarnotifications.poller.DockbarNotificationsPollerProcessor</poller-processor-class>
+		<preferences-owned-by-group>true</preferences-owned-by-group>
+		<use-default-template>false</use-default-template>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>113-opencps-notification-portlet</css-class-wrapper>
-<!-- 		<add-default-resource>true</add-default-resource> -->
-<!-- 		<system>true</system> -->
+		<add-default-resource>true</add-default-resource>
+		<system>true</system>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
