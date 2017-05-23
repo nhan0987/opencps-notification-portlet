@@ -6,14 +6,20 @@
 	<!-- Action Mappings -->
 
 	<action-mappings>
-		<action path="/manage_notifications/view" type="org.opencps.struts.action.VerifyEmailAddressAction">
+		<action path="/manage_notifications/view" type="org.opencps.notification.portlet.ManageNotificationStrutsAction">
 			<forward name="manage.notifications.view" path="manage.notifications.view" />
-			<forward name="manage.notifications.error" path="manage.notifications.error" />
 		</action>
 	</action-mappings>
+	
+	
+	
+	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"></controller>
+	<message-resources parameter="content.test.Language"></message-resources>
+	
 	<plug-in className="org.apache.struts.tiles.TilesPlugin" > 
 		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" /> 
 		<set-property property="moduleAware" value="true"/> 
+		<set-property property="definitions-parser-validate" value="true"></set-property>
 	</plug-in>
 	
 </struts-config>

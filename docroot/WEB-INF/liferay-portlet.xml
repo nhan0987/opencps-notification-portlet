@@ -10,12 +10,11 @@
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>113-opencps-notification-portlet</css-class-wrapper>
-		<add-default-resource>true</add-default-resource>
-		<system>true</system>
 	</portlet>
 	<portlet>
 		<portlet-name>114</portlet-name>
 		<struts-path>manage_notifications</struts-path>
+		<use-default-template>false</use-default-template>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>114-manage-notification-portlet</css-class-wrapper>

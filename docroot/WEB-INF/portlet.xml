@@ -44,13 +44,18 @@
 		<portlet-name>114</portlet-name>
 		<display-name>Manage Notification</display-name>
 		<portlet-class>org.opencps.notification.portlet.NotificationPortlet</portlet-class>
+<!-- 		<init-param> -->
+<!-- 			<name>view-template</name> -->
+<!-- 			<value>/html/portlets/manage_notifications/view.jsp</value> -->
+<!-- 		</init-param> -->
 		<init-param>
-			<name>view-manage-notifications</name>
-			<value>/manage_notifications/view</value>
+			<name>view-action</name>
+			<value>manage_notifications/view</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
 		</supports>
 		<resource-bundle>content.Language_vi</resource-bundle>
 		<portlet-info>

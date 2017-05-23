@@ -35,10 +35,11 @@ AUI.add(
 								var currentTarget = event.currentTarget;
 
 								var container = currentTarget.one('.dockbar-user-notifications-container');
-
+								
 								container.toggleClass('open');
 
 								var menuOpen = container.hasClass('open');
+								
 
 								if (menuOpen) {
 									currentTarget.on(
@@ -53,6 +54,35 @@ AUI.add(
 								}
 							}
 						);
+						
+						var userNotificationsClose = A.one('.user-notification-close');
+						
+						userNotificationsClose.on('click',function(event){
+							
+							var target = event.target;
+							
+							if (target.ancestor('.dockbar-user-notifications-container')) {
+								
+				
+
+								var container = target.ancestor('.dockbar-user-notifications-container');
+								
+								console.log("container:"+container);
+
+								var menuOpen = container.hasClass('open');
+
+								if (menuOpen) {
+									
+									container.removeClass('open');
+										
+									
+
+									instance._nonActionableNotificationsList.render();
+									/*instance._actionableNotificationsList.render();*/
+								}
+							}
+							
+						});
 
 						A.on(
 							'domready',
@@ -372,7 +402,7 @@ AUI.add(
 
 									var uri = currentTarget.attr('data-href');
 									
-//									console.log("+++uri:"+uri);
+									console.log("+++uri:"+uri);
 
 									var markAsReadURL = currentTarget.attr('data-markAsReadURL');
 									
@@ -386,7 +416,7 @@ AUI.add(
 													success: function() {
 														var responseData = this.get('responseData');
 														
-														console.log("+++responseData:"+responseData);
+//														console.log("+++responseData:"+responseData);
 
 														if (responseData.success) {
 															instance._redirect(uri);
@@ -412,7 +442,8 @@ AUI.add(
 
 					_redirect: function(uri) {
 						var instance = this;
-
+						
+						console.log("uri:"+uri);
 						if (uri) {
 							if (instance._openWindow(uri)) {
 								Liferay.Util.openWindow(

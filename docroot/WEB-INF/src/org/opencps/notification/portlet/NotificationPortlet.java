@@ -220,7 +220,7 @@ public class NotificationPortlet extends MVCPortlet {
 			LiferayPortletResponse liferayPortletResponse = (LiferayPortletResponse) resourceResponse;
 
 			PortletURL actionURL = liferayPortletResponse
-					.createActionURL(PortletKeys.NOTIFICATIONS);
+					.createActionURL(PortletKeys.NOTIFICATIONS_PORTLET);
 
 			actionURL.setParameter("userNotificationEventId", String
 					.valueOf(portalUserNotificationEvent
@@ -241,8 +241,6 @@ public class NotificationPortlet extends MVCPortlet {
 			
 			String stringDate = "dd/MM/yyyy HH:mm";
 			
-			
-			//EEEE, dd MMMMM , yyyy 'at' h:mm a
 
 			Format simpleDateFormat = FastDateFormatFactoryUtil
 					.getSimpleDateFormat(stringDate,
@@ -250,9 +248,6 @@ public class NotificationPortlet extends MVCPortlet {
 							themeDisplay.getTimeZone());
 
 			body = userNotificationFeedEntry.getBody();
-//			timestamp = Time.getRelativeTimeDescription(
-//					portalUserNotificationEvent.getTimestamp(),
-//					themeDisplay.getLocale(), themeDisplay.getTimeZone());
 
 			timestamp = simpleDateFormat.format(portalUserNotificationEvent.getTimestamp());
 

@@ -20,10 +20,10 @@
 
 
 	<%
-// 	int newUserNotificationsCount = UserNotificationEventLocalServiceUtil.getDeliveredUserNotificationEventsCount(themeDisplay.getUserId(), false);
 	int unreadUserNotificationsCount = UserNotificationEventLocalServiceUtil.getArchivedUserNotificationEventsCount(themeDisplay.getUserId(), false);
 
 	long notificationsPlid = themeDisplay.getPlid();
+	
 
 	if (layout.isTypeControlPanel()) {
 		notificationsPlid = LayoutLocalServiceUtil.getDefaultPlid(user.getGroupId(), true);
@@ -46,20 +46,29 @@
 				<div class="non-actionable">
 					<div class="user-notifications-header">
 
-						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.NOTIFICATIONS %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>">
-<%-- 							<portlet:param name="mvcPath" value="/notifications/view.jsp" /> --%>
-<%-- 							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" /> --%>
+<%-- 						<portlet:actionURL var="viewAllNonActionableNotifications"> --%>
+<%-- 							<portlet:param name="struts_action" value="/manage_notifications/view" /> --%>
+<%-- 						</portlet:actionURL> --%>
+						
+						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.MANAGE_NOTIFICATIONS_PORTLET %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>">
+							<portlet:param name="mvcPath" value="/html/portlets/manage_notifications/view.jsp" />
+							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" />
 						</liferay-portlet:renderURL>
-
-						<span class="header-message"><liferay-ui:message key="notifications" /> (<span class="count"></span>)</span>
+						
+<%-- 						<span class="header-message"><liferay-ui:message key="notifications" /> (<span class="count"></span>)</span> --%>
 						<span class="header-viewAll"><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="view-all" /></a></span>
 
 <%-- 						<span class="mark-all-as-read"><a class="hide" href="javascript:;"><liferay-ui:message key="mark-as-read" /></a></span> --%>
 					</div>
 
 					<div class="user-notifications"></div>
+					
+					<div class="user-notification-footer">
+						<a class="user-notification-close" href="javascript:;" style="color:red;"><liferay-ui:message key="close" /></a>
+					</div>
 				</div>
 			</ul>
+			
 		</div>
 
 		<aui:script use="aui-base,liferay-plugin-dockbar-notifications,liferay-plugin-notifications-list">
@@ -73,7 +82,7 @@
 					markAllAsReadNode: '',
 					namespace: '<portlet:namespace />',
 					notificationsContainer: '.dockbar-user-notifications .dockbar-user-notifications-container .user-notifications-list .non-actionable',
-					unreadNotificationsCount: '.count',
+					unreadNotificationsCount: null,
 					notificationsNode: '.user-notifications',
 					portletKey: '<%= portletDisplay.getId() %>'
 				}

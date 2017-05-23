@@ -7,10 +7,10 @@
 
 	<!-- My Account -->
 
-	<definition name="portlet.manage_notification" extends="portlet" />
+<!-- 	<definition name="portlet.manage_notification" extends="portlet" /> -->
 
-	<definition name="portlet.manage_notification.view" extends="portlet.manage_notification">
-		<put name="portlet_content" value="/html/portlet/managenotifications/view.jsp" />
+	<definition name="manage.notifications.view" path="/html/portlet/manage_notifications/view.jsp">
+		
 	</definition>
 
 	
