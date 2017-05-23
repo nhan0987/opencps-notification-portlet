@@ -32,8 +32,10 @@
 	
 	List<String> headerNames = new ArrayList<String>();
 	
-	headerNames.add("boundcol1");
-	headerNames.add("boundcol2");
+	headerNames.add("dossier");
+	headerNames.add("action-name");
+	headerNames.add("notes");
+	headerNames.add("notification-date");
 	
 	String headers = StringUtil.merge(headerNames, StringPool.COMMA);
 
@@ -82,67 +84,53 @@
 			<%
 			UserNotificationEventBean userNotificationBean = UserNotificationEventBean.getBean(userNotificationEvent, null, renderRequest,themeDisplay.getLocale(),themeDisplay.getTimeZone());
 			
+			String boldLabel = "bold-label";
+			if(userNotificationBean.isArchived()){
+				
+				boldLabel= StringPool.BLANK;
+				
+			}
+			
 			%>
-				<liferay-util:buffer var="boundcol1">
+				<liferay-util:buffer var="dossier">
 					<a href="<%=userNotificationBean.getUrl()%>">
-						<div class="row-fluid">
-							<div class="row-fluid">
-								<div class="span2 bold-label">
-									<liferay-ui:message key="dossier"/>
-								</div>
-								<div class="span10">
-									<%=userNotificationBean.getReceptionNo().length() > 0 ? userNotificationBean.getReceptionNo() : userNotificationBean.getDossierId() %>
-								</div>
-							</div>
-						</div>
-						
-						<div class="row-fluid">
-							
-							<div class="span2 bold-label">
-								 <liferay-ui:message key="action-name"/>
-							</div>
-							
-							<div class="span10">
-								<%=userNotificationBean.getActionName() %>
-							</div>
-						</div>
-						
-						<div class="row-fluid">
-							
-							<div class="span2 bold-label">
-								 <liferay-ui:message key="notes"/>
-							</div>
-							
-							<div class="span10">
-								<%=userNotificationBean.getNote() %>
-							</div>
+						<div class="span12 <%=boldLabel%>">
+							<%=userNotificationBean.getReceptionNo().length() > 0 ? userNotificationBean.getReceptionNo() : userNotificationBean.getDossierId() %>
 						</div>
 					</a>
 				</liferay-util:buffer>
 				
-				
-				<liferay-util:buffer var="boundcol2">
-				
-				<a href="<%=userNotificationBean.getUrl()%>">
-					
-					<div class="row-fluid">
+				<liferay-util:buffer var="actionNname">
+					<a href="<%=userNotificationBean.getUrl()%>">
 						
-						<div class="span5 bold-label">
-							 <liferay-ui:message key="create-date"/>
+						<div class="span12 <%=boldLabel%>">
+							<%=userNotificationBean.getActionName() %>
 						</div>
-						
-						<div class="span7">
+					</a>
+				</liferay-util:buffer>
+				
+				<liferay-util:buffer var="notes">
+					<a href="<%=userNotificationBean.getUrl()%>">
+						<div class="span12 <%=boldLabel%>">
+							<%=userNotificationBean.getNote() %>
+						</div>
+					</a>
+				</liferay-util:buffer>
+				
+				<liferay-util:buffer var="notificationDate">
+					<a href="<%=userNotificationBean.getUrl()%>">
+						<div class="span12 <%=boldLabel%>">
 							<%=userNotificationBean.getCreateDate() %>
 						</div>
-						
-					</div>
-				</a>
+					</a>
 				
 				</liferay-util:buffer>
 				<%
 					row.setClassName("opencps-searchcontainer-row");
-					row.addText(boundcol1);
-					row.addText(boundcol2);
+					row.addText(dossier);
+					row.addText(actionNname);
+					row.addText(notes);
+					row.addText(notificationDate);
 				%>
 
 			</liferay-ui:search-container-row>
