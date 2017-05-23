@@ -61,6 +61,7 @@
 				
 				List<UserNotificationEvent> userNotificationEvents = new ArrayList<UserNotificationEvent>();
 				
+				
 				int totalSize = 0;
 				userNotificationEvents = UserNotificationEventLocalServiceUtil
 						.getUserNotificationEvents(themeDisplay.getUserId(), searchContainer.getStart(), searchContainer.getEnd());
