@@ -227,12 +227,12 @@ AUI.add(
 										var response = this.get('responseData');
 
 										if (response) {
-											var unreadTotalUserNotificationEventsCount = response.unreadTotalUserNotificationEventsCount;
+											var total = response.total;
 
 											var notificationsCountNode = notificationsContainer.one(instance._unreadNotificationsCount);
 
 											if (notificationsCountNode) {
-												notificationsCountNode.setHTML(unreadTotalUserNotificationEventsCount);
+												notificationsCountNode.setHTML(total);
 											}
 
 											var entries = [];
@@ -402,7 +402,7 @@ AUI.add(
 
 									var uri = currentTarget.attr('data-href');
 									
-									console.log("+++uri:"+uri);
+//									console.log("+++uri:"+uri);
 
 									var markAsReadURL = currentTarget.attr('data-markAsReadURL');
 									
