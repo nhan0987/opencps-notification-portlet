@@ -38,9 +38,16 @@
 	headerNames.add("notification-date");
 	
 	String headers = StringUtil.merge(headerNames, StringPool.COMMA);
+	
+	String previousPageUrl = "javascript:history.go(-1);";
 
 %>
+
+
+
 <div class="opencps-searchcontainer-wrapper">
+	
+	<liferay-ui:header backURL="<%=previousPageUrl %>" title=""/>
 
 	<div class="opcs-serviceinfo-list-label">
 		<div class="title_box">
