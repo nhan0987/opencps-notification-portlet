@@ -2,9 +2,13 @@
 
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
-		<portlet-name>opencps-notification</portlet-name>
+		<portlet-name>113</portlet-name>
 		<display-name>Opencps Notification</display-name>
 		<portlet-class>org.opencps.notification.portlet.NotificationPortlet</portlet-class>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
 		<init-param>
 			<name>view-template</name>
 			<value>/html/portlets/notifications/dockbar_notifications/view.jsp</value>
@@ -17,10 +21,75 @@
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
+		<resource-bundle>content.Language_vi</resource-bundle>
 		<portlet-info>
 			<title>Opencps Notification</title>
 			<short-title>Opencps Notification</short-title>
 			<keywords>Opencps Notification</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>114</portlet-name>
+		<display-name>View Notification</display-name>
+		<portlet-class>org.opencps.notification.portlet.NotificationPortlet</portlet-class>
+		<init-param>
+			<name>view-action</name>
+			<value>manage_notifications/view</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<resource-bundle>content.Language_vi</resource-bundle>
+		<portlet-info>
+			<title>View Notification</title>
+			<short-title>View Notification</short-title>
+			<keywords>View Notification</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>115</portlet-name>
+		<display-name>Manage Notification</display-name>
+		<portlet-class>org.opencps.notification.portlet.NotificationPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/html/portlets/manage_notifications/view.jsp</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<resource-bundle>content.Language_vi</resource-bundle>
+		<portlet-info>
+			<title>Manage Notification</title>
+			<short-title>Manage Notification</short-title>
+			<keywords>Manage Notification</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

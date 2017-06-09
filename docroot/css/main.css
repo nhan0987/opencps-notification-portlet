@@ -108,12 +108,14 @@
 
 		.user-notifications {
 			clear: both;
+			overflow: auto;
 		}
 
 		.user-notification {
 			line-height: 20px;
-			padding: 10px;
+			padding: 5px 15px;
 			position: relative;
+			border-bottom: 1px solid #d1d1d1;
 
 			.mark-as-read {
 				color: #999;
@@ -169,7 +171,7 @@
 			}
 
 			.content {
-				margin-left: 40px;
+				margin-left: 0px;
 			}
 
 			.body-container {
@@ -185,6 +187,13 @@
 			.timestamp {
 				color: #999;
 				font-size: 11px;
+				float: right;
+				
+				&:before {
+					content: "\f017";
+					font-family: FontAwesome;
+					color: #5594e0;
+				}
 			}
 		}
 	}
@@ -249,15 +258,23 @@
 
 	.user-notifications-header {
 		border-bottom: 1px solid #2AAAE6;
-		min-height: 31px;
-		padding: 0 10px;
+		min-height: 34px;
+		padding: 0 15px;
 
 		& > span {
-			line-height: 2.25em;
+			line-height: 2.5em;
 		}
 
 		.title {
 			float: left;
+		}
+		
+		.header-message {
+			font-weight: 700;
+		}
+		
+		.header-viewAll {
+			float: right;
 		}
 	}
 }

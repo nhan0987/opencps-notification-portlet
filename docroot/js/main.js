@@ -35,10 +35,11 @@ AUI.add(
 								var currentTarget = event.currentTarget;
 
 								var container = currentTarget.one('.dockbar-user-notifications-container');
-
+								
 								container.toggleClass('open');
 
 								var menuOpen = container.hasClass('open');
+								
 
 								if (menuOpen) {
 									currentTarget.on(
@@ -53,6 +54,35 @@ AUI.add(
 								}
 							}
 						);
+						
+						var userNotificationsClose = A.one('.user-notification-close');
+						
+						userNotificationsClose.on('click',function(event){
+							
+							var target = event.target;
+							
+							if (target.ancestor('.dockbar-user-notifications-container')) {
+								
+				
+
+								var container = target.ancestor('.dockbar-user-notifications-container');
+								
+								console.log("container:"+container);
+
+								var menuOpen = container.hasClass('open');
+
+								if (menuOpen) {
+									
+									container.removeClass('open');
+										
+									
+
+									instance._nonActionableNotificationsList.render();
+									/*instance._actionableNotificationsList.render();*/
+								}
+							}
+							
+						});
 
 						A.on(
 							'domready',
@@ -324,9 +354,11 @@ AUI.add(
 
 					_bindUI: function() {
 						var instance = this;
+						
+//						console.log("run _bindUI()");
 
 //						instance._bindMarkAllAsRead();
-						instance._bindMarkAsRead();
+//						instance._bindMarkAsRead();
 //						instance._bindNotificationsAction();
 //						instance._bindNextPageNotifications();
 //						instance._bindPreviousPageNotifications();
@@ -335,26 +367,46 @@ AUI.add(
 
 					_bindViewNotification: function() {
 						var instance = this;
+						
+//						console.log("run _bindViewNotification()");
 
 						var notificationsContainer = A.one(instance._notificationsContainer);
+						
+//						console.log("+++notificationsContainer:"+notificationsContainer);
 
 						var notificationsNode = notificationsContainer.one(instance._notificationsNode);
+						
+//						console.log("+++notificationsNode:"+notificationsNode);
 
 						if (notificationsNode) {
 							notificationsNode.delegate(
 								'click',
 								function(event) {
 									var currentTarget = event.currentTarget;
+									
+//									console.log("+++currentTarget:"+currentTarget);
 
 									var target = event.target;
+									
+//									console.log("+++currentTarget:"+target);
+//									
+//									console.log("+++target.hasClass('.mark-as-read'):"+target.hasClass('.mark-as-read'));
+//									
+//									console.log("+++target.ancestor('.mark-as-read'):"+target.ancestor('.mark-as-read'));
+//									
+//									console.log("+++target._node.tagName == 'A':"+target._node.tagName == 'A');
 
-									if (target.hasClass('.mark-as-read') || target.ancestor('.mark-as-read') || (target._node.tagName == 'A')) {
-										return;
-									}
+//									if (target.hasClass('.mark-as-read') || target.ancestor('.mark-as-read') || (target._node.tagName == 'A')) {
+//										return;
+//									}
 
 									var uri = currentTarget.attr('data-href');
+									
+									console.log("+++uri:"+uri);
 
 									var markAsReadURL = currentTarget.attr('data-markAsReadURL');
+									
+//									console.log("+++markAsReadURL:"+markAsReadURL);
 
 									if (markAsReadURL) {
 										A.io.request(
@@ -363,6 +415,8 @@ AUI.add(
 												after: {
 													success: function() {
 														var responseData = this.get('responseData');
+														
+//														console.log("+++responseData:"+responseData);
 
 														if (responseData.success) {
 															instance._redirect(uri);
@@ -388,7 +442,8 @@ AUI.add(
 
 					_redirect: function(uri) {
 						var instance = this;
-
+						
+						console.log("uri:"+uri);
 						if (uri) {
 							if (instance._openWindow(uri)) {
 								Liferay.Util.openWindow(
