@@ -1,4 +1,4 @@
-<%@ include file="../../init.jsp" %>
+<%@ include file="../init.jsp" %>
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -31,36 +31,27 @@
 	}
 	%>
 
-	<li class="dockbar-user-notifications dropdown toggle-controls" id="<portlet:namespace />userNotifications">
+	<li class="dashboard-user-notifications dropdown toggle-controls" id="<portlet:namespace />userNotifications">
 		<a class="dropdown-toggle user-notification-link" href="javascript:;">
 			<span class='user-notifications-count <%= (unreadUserNotificationsCount > 0) ? "alert" : StringPool.BLANK %>' id="<portlet:namespace />userNotificationsCount"><%= unreadUserNotificationsCount %></span>
 		</a>
 
-		<div class="dockbar-user-notifications-container">
+		<div class="dashboard-user-notifications-container">
 			<ul class="dropdown-menu pull-right user-notifications-list">
 				<div class="non-actionable">
-					<div class="user-notifications-header">
-
-<%-- 						<portlet:actionURL var="viewAllNonActionableNotifications"> --%>
-<%-- 							<portlet:param name="struts_action" value="/manage_notifications/view" /> --%>
-<%-- 						</portlet:actionURL> --%>
+					<div class="-user-notifications-header">
 						
 						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.MANAGE_NOTIFICATIONS_PORTLET %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>">
 							<portlet:param name="mvcPath" value="/html/portlets/manage_notifications/view.jsp" />
 							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" />
 						</liferay-portlet:renderURL>
 						
-						<span class="header-message"><liferay-ui:message key="unread-notification" /> (<span class="count"></span>)</span>
+						<span class="header-message"><liferay-ui:message key="unread-notification" /> (<span class="dashboard-count"></span>)</span>
 						<span class="header-viewAll"><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="view-all" /></a></span>
 
-<%-- 						<span class="mark-all-as-read"><a class="hide" href="javascript:;"><liferay-ui:message key="mark-as-read" /></a></span> --%>
 					</div>
 
-					<div class="user-notifications"></div>
-					
-					<div class="user-notification-footer">
-						<a class="user-notification-close" href="javascript:;" style="color:red;"><liferay-ui:message key="close" /></a>
-					</div>
+					<div class="dashboard-user-notifications"></div>
 				</div>
 			</ul>
 			

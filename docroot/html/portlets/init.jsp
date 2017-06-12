@@ -15,27 +15,45 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@page import="java.text.Format" %>
-<%@page import="java.util.List" %>
-<%@page import="java.util.Map" %>
-<%@page import="java.util.TreeMap" %>
-<%@page import="javax.portlet.PortletRequest" %>
+<%@page import="org.opencps.notification.utils.PortletPropsValues"%>
+<%@page import="org.opencps.notification.utils.PortletKeys"%>
 
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
 <%@page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil" %>
-<%@page import="com.liferay.portal.kernel.util.StringPool" %>
+<%@page import="com.liferay.portal.kernel.util.StringPool" %><%@page import="com.liferay.portal.model.Group" %>
+<%@page import="com.liferay.portal.model.GroupConstants" %>
+<%@page import="com.liferay.portal.model.LayoutConstants" %>
+<%@page import="com.liferay.portal.model.UserNotificationDelivery" %>
+<%@page import="com.liferay.portal.service.GroupLocalServiceUtil" %>
+<%@page import="com.liferay.portal.service.UserNotificationDeliveryLocalServiceUtil" %>
+<%@page import="com.liferay.portal.service.UserNotificationEventLocalServiceUtil" %>
 <%@page import="com.liferay.portal.util.PortalUtil" %>
 <%@page import="com.liferay.portlet.PortletURLFactoryUtil" %>
+<%@page import="com.liferay.portal.service.LayoutLocalServiceUtil"%>
+<%@page import="com.liferay.portal.kernel.util.StringUtil"%>
 
-<%@page import="org.opencps.notification.utils.PortletPropsValues"%>
-<%@page import="org.opencps.notification.utils.PortletKeys"%>
+<%@page import="com.liferay.portal.service.UserNotificationEventLocalServiceUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
+<%@page import="com.liferay.portal.model.UserNotificationEvent"%>
+
+<%@page import="org.opencps.notification.utils.UserNotificationEventBean"%>
+
+<%@page import="javax.portlet.PortletURL"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.text.Format" %>
+<%@ page import="java.util.List" %>
+<%@page import="java.util.Map" %>
+<%@page import="java.util.TreeMap" %>
+
+<%@ page import="javax.portlet.PortletRequest" %>
 
 <portlet:defineObjects />
 

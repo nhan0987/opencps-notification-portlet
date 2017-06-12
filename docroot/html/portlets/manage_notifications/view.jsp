@@ -1,10 +1,3 @@
-<%@page import="org.opencps.notification.utils.UserNotificationEventBean"%>
-<%@page import="com.liferay.portal.kernel.util.StringUtil"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.liferay.portal.service.UserNotificationEventLocalServiceUtil"%>
-<%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
-<%@page import="com.liferay.portal.model.UserNotificationEvent"%>
-<%@page import="javax.portlet.PortletURL"%>
 <%
 /**
  * OpenCPS is the open source Core Public Services software
@@ -23,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 %>
-<%@ include file="init.jsp" %>
+<%@ include file="../init.jsp" %>
 
 <%
 
