@@ -1,3 +1,4 @@
+<%@page import="javax.portlet.ActionRequest"%>
 <%
 /**
  * OpenCPS is the open source Core Public Services software
@@ -33,108 +34,120 @@
 	String headers = StringUtil.merge(headerNames, StringPool.COMMA);
 	
 	String previousPageUrl = "javascript:history.go(-1);";
+	
+	PortletURL markAsReadUrl = renderResponse.createActionURL();
+	markAsReadUrl.setParameter(ActionRequest.ACTION_NAME, "markAsRead");
 
 %>
 
-
+<liferay-ui:header backURL="<%=previousPageUrl %>" title=""/>
 
 <div class="opencps-searchcontainer-wrapper">
-	
-	<liferay-ui:header backURL="<%=previousPageUrl %>" title=""/>
-
-	<div class="opcs-serviceinfo-list-label">
-		<div class="title_box">
-			<p class="file_manage_title"><liferay-ui:message key="user-notification-list"/></p>
-			<p class="count"></p>
+	<aui:row>
+		<div class="opcs-serviceinfo-list-label">
+			<div class="title_box">
+				<p class="file_manage_title"><liferay-ui:message key="user-notification-list"/></p>
+				<p class="count"></p>
+			</div>
 		</div>
-	</div>
+	</aui:row>
+		<%
+		
+		SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 5, iteratorURL, null, "");
+		
+		List<UserNotificationEvent> userNotificationEvents = new ArrayList<UserNotificationEvent>();
+		
+		int totalSize = 0;
+		
+		userNotificationEvents = UserNotificationEventLocalServiceUtil
+				.getUserNotificationEvents(themeDisplay.getUserId(), searchContainer.getStart(),searchContainer.getEnd());
 
-	<liferay-ui:search-container 
-			emptyResultsMessage="you-do-not-have-any-new-notifications"
-			iteratorURL="<%=iteratorURL %>"
-			delta="<%=20 %>"
-			deltaConfigurable="true"
-			headerNames="<%=headers %>"
-			>
-			<liferay-ui:search-container-results>
-				<%
-				
-				List<UserNotificationEvent> userNotificationEvents = new ArrayList<UserNotificationEvent>();
-				
-				
-				int totalSize = 0;
-				userNotificationEvents = UserNotificationEventLocalServiceUtil
-						.getUserNotificationEvents(themeDisplay.getUserId(), searchContainer.getStart(), searchContainer.getEnd());
+		totalSize = UserNotificationEventLocalServiceUtil
+				.getUserNotificationEventsCount(themeDisplay.getUserId());
+		searchContainer.setResults(userNotificationEvents);
+		searchContainer.setTotal(totalSize);
 
-				totalSize = UserNotificationEventLocalServiceUtil
-						.getUserNotificationEventsCount(themeDisplay.getUserId());
-
-				searchContainer.setResults(userNotificationEvents);
-				searchContainer.setTotal(totalSize);
-					
-					
-				%>
-			</liferay-ui:search-container-results>
-			
-			<liferay-ui:search-container-row 
-				className="com.liferay.portal.model.UserNotificationEvent" 
-				modelVar="userNotificationEvent" 
-				keyProperty="userNotificationEventId"
-			>
-			
-			<%
-			UserNotificationEventBean userNotificationBean = UserNotificationEventBean.getBean(userNotificationEvent, null, renderRequest,themeDisplay.getLocale(),themeDisplay.getTimeZone());
-			
-			String boldLabel = "bold-label";
-			if(userNotificationBean.isArchived()){
-				
-				boldLabel= StringPool.BLANK;
-				
-			}
-			
-			%>
-				<liferay-util:buffer var="dossier">
-					<a href="<%=userNotificationBean.getUrl()%>">
-						<div class="span12 <%=boldLabel%>">
-							<%=userNotificationBean.getReceptionNo().length() > 0 ? userNotificationBean.getReceptionNo() : userNotificationBean.getDossierId() %>
-						</div>
-					</a>
-				</liferay-util:buffer>
-				
-				<liferay-util:buffer var="actionNname">
-					<a href="<%=userNotificationBean.getUrl()%>">
+		%>
+		<c:choose>
+			<c:when test="<%=userNotificationEvents.size() > 0 %>">
+				<div class="manage-non-actionable">
 						
-						<div class="span12 <%=boldLabel%>">
-							<%=userNotificationBean.getActionName() %>
-						</div>
-					</a>
-				</liferay-util:buffer>
+					<aui:row>
+						<aui:col span="3" cssClass="bold-label"><liferay-ui:message key="dossier"/></aui:col>
+						<aui:col span="3" cssClass="bold-label"><liferay-ui:message key="action-name"/></aui:col>
+						<aui:col span="3" cssClass="bold-label"><liferay-ui:message key="notes"/></aui:col>
+						<aui:col span="3" cssClass="bold-label"><liferay-ui:message key="notification-date"/></aui:col>
+					</aui:row>
+						
+						
+					<aui:row cssClass="manage-main-user-notifications">
+						
+						<%for(UserNotificationEvent userNotificationEvent:userNotificationEvents){
+							
+							UserNotificationEventBean userNotificationBean = UserNotificationEventBean
+									.getBean(userNotificationEvent, null, renderRequest,themeDisplay.getLocale(),themeDisplay.getTimeZone());
+							
+							markAsReadUrl.setParameter("userNotificationEventId", String.valueOf(userNotificationEvent.getUserNotificationEventId()));
+							
+							String boldLabel = "bold-label";
+							if(userNotificationBean.isArchived()){
+								
+								boldLabel= StringPool.BLANK;
+								
+							}
+						%>
+							<div class="manage-user-notification">
+								<div data-href="<%=userNotificationBean.getUrl()%>" class="manage-user-notification-link click-able " data-markasreadurl="<%=markAsReadUrl%>">
+									<aui:col span="3" cssClass="<%=boldLabel%>">
+										<span >
+											<%=userNotificationBean.getReceptionNo().length() > 0 ? userNotificationBean.getReceptionNo() : userNotificationBean.getDossierId() %>
+										</span>
+									</aui:col>
+									<aui:col span="3" cssClass="<%=boldLabel%>">
+										<span >
+											<%=userNotificationBean.getActionName() %>
+										</span>
+									</aui:col>
+									<aui:col span="3" cssClass="<%=boldLabel%>">
+										<span >
+											<%=userNotificationBean.getNote() %>
+										</span>
+									</aui:col>
+									<aui:col span="3" cssClass="<%=boldLabel%>">
+										<span >
+											<%=userNotificationBean.getCreateDate() %>
+										</span>
+									</aui:col>
+								</div>
+							</div>
+						<%} %>
+						
+					</aui:row>
+					
+					<aui:row>
+						<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="opencs_page_iterator"/>
+					</aui:row>	
+				</div>
 				
-				<liferay-util:buffer var="notes">
-					<a href="<%=userNotificationBean.getUrl()%>">
-						<div class="span12 <%=boldLabel%>">
-							<%=userNotificationBean.getNote() %>
-						</div>
-					</a>
-				</liferay-util:buffer>
 				
-				<liferay-util:buffer var="notificationDate">
-					<a href="<%=userNotificationBean.getUrl()%>">
-						<div class="span12 <%=boldLabel%>">
-							<%=userNotificationBean.getCreateDate() %>
-						</div>
-					</a>
-				
-				</liferay-util:buffer>
-				<%
-					row.setClassName("opencps-searchcontainer-row");
-					row.addText(dossier);
-					row.addText(actionNname);
-					row.addText(notes);
-					row.addText(notificationDate);
-				%>
-
-			</liferay-ui:search-container-row>
-			<liferay-ui:search-iterator type="opencs_page_iterator"/>
-	</liferay-ui:search-container>
+			</c:when>
+			<c:otherwise>
+				<div class="alert alert-info">
+					<liferay-ui:message key="no-user-notification-event-where-found" />
+				</div>
+			</c:otherwise>
+		</c:choose>
+		
+			
+	
 </div>
+
+<aui:script use="aui-base,mark-as-read">		
+	var nonActionableNotificationsList = new Liferay.MarkAsRead(
+		{
+			notificationsContainer: '.manage-non-actionable',
+			notificationsNode: '.manage-main-user-notifications',
+			notificationsLinkClass :'.manage-user-notification .manage-user-notification-link'
+		}
+	);
+</aui:script>

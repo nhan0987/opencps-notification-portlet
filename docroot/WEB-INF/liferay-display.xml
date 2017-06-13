@@ -2,7 +2,8 @@
 <!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.2.0//EN" "http://www.liferay.com/dtd/liferay-display_6_2_0.dtd">
 
 <display>
-	<category name="org.opencps.backoffice">
+	<category name="org.opencps.frontoffice">
 		<portlet id="115" />
+		<portlet id="116" />
 	</category>
 </display>

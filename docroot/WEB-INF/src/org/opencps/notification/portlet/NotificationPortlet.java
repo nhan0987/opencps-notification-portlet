@@ -19,6 +19,8 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.notifications.UserNotificationFeedEntry;
 import com.liferay.portal.kernel.notifications.UserNotificationManagerUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -36,6 +38,8 @@ import com.liferay.util.ContentUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 public class NotificationPortlet extends MVCPortlet {
+	
+	private static Log _log = LogFactoryUtil.getLog(NotificationPortlet.class);
 
 	public void processAction(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws PortletException {
@@ -78,6 +82,7 @@ public class NotificationPortlet extends MVCPortlet {
 		} catch (Exception e) {
 			jsonObject.put("success", Boolean.FALSE);
 		}
+		
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
 	}

@@ -66,8 +66,6 @@ AUI.add(
 				
 
 								var container = target.ancestor('.dockbar-user-notifications-container');
-								
-								console.log("container:"+container);
 
 								var menuOpen = container.hasClass('open');
 
@@ -294,6 +292,8 @@ AUI.add(
 
 					_bindMarkAsRead: function() {
 						var instance = this;
+						
+						console.log("run _bindMarkAsRead()");
 
 						var notificationsContainer = A.one(instance._notificationsContainer);
 
@@ -469,5 +469,125 @@ AUI.add(
 	'',
 	{
 		requires: ['aui-base', 'aui-io', 'aui-loading-mask-deprecated', 'liferay-poller', 'liferay-portlet-base', 'liferay-portlet-url']
+	}
+);
+
+AUI.add('mark-as-read',function(A){
+	
+	var MarkAsRead = A.Component.create(
+			{
+				AUGMENTS: [Liferay.PortletBase],
+
+				EXTENDS: A.Base,
+
+				NAME: 'markasread',
+
+				prototype: {
+					initializer: function(config) {
+						
+//						console.log("mark-as-read: initializer");
+						
+						var instance = this;
+						
+						instance._notificationsContainer = config.notificationsContainer;
+						instance._notificationsNode = config.notificationsNode;
+						instance._notificationsLinkClass = config.notificationsLinkClass;
+						
+						instance._bindViewNotification();
+						
+					},
+					_bindViewNotification: function() {
+						var instance = this;
+						
+//						console.log("run markasread_bindViewNotification()");
+
+						var notificationsContainer = A.one(instance._notificationsContainer);
+						
+						var notificationsLinkClass = instance._notificationsLinkClass;
+						
+//						console.log("notificationsLinkClass:"+notificationsLinkClass);
+						
+						if(notificationsContainer){
+							
+//							console.log("notificationsContainer:"+notificationsContainer);
+
+							var notificationsNode = notificationsContainer.one(instance._notificationsNode);
+						
+						}
+						
+						if (notificationsNode) {
+							notificationsNode.delegate(
+								'click',
+								function(event) {
+									var currentTarget = event.currentTarget;
+
+									var target = event.target;
+
+									var uri = currentTarget.attr('data-href');
+									
+//									console.log("uri:"+uri);
+									
+									var markAsReadURL = currentTarget.attr('data-markasreadurl');
+									
+//									console.log("markAsReadURL:"+markAsReadURL);
+
+									if (markAsReadURL) {
+										A.io.request(
+											markAsReadURL,
+											{
+												after: {
+													success: function() {
+														var responseData = this.get('responseData');
+
+														if (responseData.success) {
+															instance._redirect(uri);
+														}
+													}
+												},
+												dataType: 'JSON'
+											}
+										);
+									}
+									else {
+										instance._redirect(uri);
+									}
+								},
+								notificationsLinkClass
+							);
+						}
+					},
+					_redirect: function(uri) {
+						var instance = this;
+						
+						console.log("markasread_uri:"+uri);
+						if (uri) {
+							if (instance._openWindow(uri)) {
+								Liferay.Util.openWindow(
+									{
+										id: 'notificationsWindow',
+										uri: uri
+									}
+								);
+							}
+							else {
+								var topWindow = Liferay.Util.getTop();
+
+								topWindow.location.href = uri;
+							}
+						}
+					},
+					_openWindow: function(uri) {
+						return /p_p_state=(maximized|pop_up|exclusive)/.test(uri);
+					}
+				}
+			}
+		);
+	
+		Liferay.MarkAsRead = MarkAsRead;
+	
+	},
+	'',
+	{
+		requires: ['aui-base', 'aui-io', 'liferay-portlet-url']
 	}
 );

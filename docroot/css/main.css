@@ -116,7 +116,6 @@
 			padding: 5px 15px;
 			position: relative;
 			border-bottom: 1px solid #d1d1d1;
-
 			.mark-as-read {
 				color: #999;
 
@@ -517,4 +516,20 @@
 			}
 		}
 	}
+}
+.user-notification{
+	cursor:pointer;
+}
+.user-notification:hover{
+	background-color: #F3F3F3;
+}
+.click-able{
+	cursor:pointer;
+}
+.bold-label{
+	font-weight: bold;
+}
+
+.aui li{
+	list-style-type: none;
 }
