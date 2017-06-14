@@ -65,10 +65,10 @@
 						</liferay-portlet:renderURL>
 						
 						<aui:row>
-							<aui:col width="50">
+							<aui:col span="9">
 								<span class="dashboad-header-message"><liferay-ui:message key="unread-notification" /> (<span class="dashboard-count"><%=totalSize %></span>)</span>
 							</aui:col>
-							<aui:col width="50">
+							<aui:col span="3">
 								<span class="dashboad-header-viewAll"><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="view-all" /></a></span>
 							</aui:col>
 						</aui:row>
