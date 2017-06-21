@@ -45,13 +45,13 @@
 <%-- 							<portlet:param name="struts_action" value="/manage_notifications/view" /> --%>
 <%-- 						</portlet:actionURL> --%>
 						
-						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.MANAGE_NOTIFICATIONS_PORTLET %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>">
-							<portlet:param name="mvcPath" value="/html/portlets/manage_notifications/view.jsp" />
-							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" />
-						</liferay-portlet:renderURL>
+<%-- 						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.MANAGE_NOTIFICATIONS_PORTLET %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>"> --%>
+<%-- 							<portlet:param name="mvcPath" value="/html/portlets/manage_notifications/view.jsp" /> --%>
+<%-- 							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" /> --%>
+<%-- 						</liferay-portlet:renderURL> --%>
 						
 						<span class="header-message"><liferay-ui:message key="unread-notification" /> (<span class="count"></span>)</span>
-						<span class="header-viewAll"><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="view-all" /></a></span>
+						<span class="header-viewAll"><a href="/group/guest/notifications-manager"><liferay-ui:message key="view-all" /></a></span>
 
 <%-- 						<span class="mark-all-as-read"><a class="hide" href="javascript:;"><liferay-ui:message key="mark-as-read" /></a></span> --%>
 					</div>
