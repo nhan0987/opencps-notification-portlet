@@ -59,17 +59,17 @@
 				<div class="dashboard-non-actionable">
 					<div class="dashboad-notifications-header">
 						
-						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.MANAGE_NOTIFICATIONS_PORTLET %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>">
-							<portlet:param name="mvcPath" value="/html/portlets/manage_notifications/view.jsp" />
-							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" />
-						</liferay-portlet:renderURL>
+<%-- 						<liferay-portlet:renderURL plid="<%= notificationsPlid %>" portletName="<%= PortletKeys.MANAGE_NOTIFICATIONS_PORTLET %>" var="viewAllNonActionableNotifications" windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>"> --%>
+<%-- 							<portlet:param name="mvcPath" value="/html/portlets/manage_notifications/view.jsp" /> --%>
+<%-- 							<portlet:param name="actionable" value="<%= Boolean.FALSE.toString() %>" /> --%>
+<%-- 						</liferay-portlet:renderURL> --%>
 						
 						<aui:row>
 							<aui:col span="9">
 								<span class="dashboad-header-message"><liferay-ui:message key="unread-notification" /> (<span class="dashboard-count"><%=totalSize %></span>)</span>
 							</aui:col>
 							<aui:col span="3">
-								<span class="dashboad-header-viewAll"><a href="<%= viewAllNonActionableNotifications %>"><liferay-ui:message key="view-all" /></a></span>
+								<span class="dashboad-header-viewAll"><a href="/group/guest/notifications-manager"><liferay-ui:message key="view-all" /></a></span>
 							</aui:col>
 						</aui:row>
 
