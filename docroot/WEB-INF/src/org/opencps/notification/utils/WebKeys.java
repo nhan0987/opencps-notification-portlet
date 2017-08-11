@@ -53,6 +53,8 @@ public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 	
 	public static final String DETAIL_DASHBOARD_PORTLET = "35_WAR_opencpsportlet";
 	
+	public static final String REDIRECT_NOTIFICATION = "117_WAR_opencpsnotificationportlet";
+	
 	public static final String DICT_COLLECTION_ENTRY = "DICT_COLLECTION_ENTRY";
 
 	public static final String DICT_VERSION_ENTRY = "DICT_VERSION_ENTRY";

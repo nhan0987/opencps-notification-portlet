@@ -27,6 +27,18 @@
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>116-dashboard-notification-portlet</css-class-wrapper>
 	</portlet>
+	<portlet>
+		<portlet-name>117</portlet-name>
+		<icon>/icon.png</icon>
+		<configuration-action-class>org.opencps.notification.portlet.ConfigurationActionImpl</configuration-action-class>
+		<header-portlet-css>/css/main.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/main.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>
+			117-redirect-notification-portlet
+		</css-class-wrapper>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>

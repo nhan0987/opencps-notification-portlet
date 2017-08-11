@@ -5,5 +5,6 @@
 	<category name="org.opencps.frontoffice">
 		<portlet id="115" />
 		<portlet id="116" />
+		<portlet id="117" />
 	</category>
 </display>

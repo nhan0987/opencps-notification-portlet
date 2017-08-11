@@ -17,9 +17,13 @@
 
 package org.opencps.notification.utils;
 
+import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
+
+import org.opencps.dossiermgt.model.Dossier;
+import org.opencps.dossiermgt.service.DossierLocalServiceUtil;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONException;
@@ -32,8 +36,10 @@ import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.UserNotificationEvent;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portlet.PortletURLFactoryUtil;
 
 /**
  * @author nhanhoang
@@ -43,8 +49,6 @@ public class NotificationUtils {
 
 	private static Log _log = LogFactoryUtil.getLog(NotificationUtils.class);
 
-
-	
 	public static String getLink(UserNotificationEvent userNotificationEvent,
 			ServiceContext serviceContext, RenderRequest renderRequest)
 			throws JSONException, WindowStateException {
@@ -57,25 +61,24 @@ public class NotificationUtils {
 		LiferayPortletResponse liferayPortletResponse = null;
 
 		LiferayPortletURL viewURL = null;
+		LiferayPortletURL redirectURL = null;
 
 		try {
 
 			if (Validator.isNotNull(renderRequest)
 					&& Validator.isNull(serviceContext)) {
-				
-				try{
 
-				serviceContext = ServiceContextFactory
-						.getInstance(renderRequest);
-				}catch(PortalException e){
+				try {
+
+					serviceContext = ServiceContextFactory
+							.getInstance(renderRequest);
+				} catch (PortalException e) {
 					_log.error(e);
 				}
 
 			}
 
-			liferayPortletResponse = serviceContext
-					.getLiferayPortletResponse();
-			
+			liferayPortletResponse = serviceContext.getLiferayPortletResponse();
 
 			JSONObject jsonObject = JSONFactoryUtil
 					.createJSONObject(userNotificationEvent.getPayload());
@@ -115,11 +118,32 @@ public class NotificationUtils {
 
 				viewURL.setParameter("mvcPath",
 						"/html/portlets/dossiermgt/frontoffice/edit_dossier.jsp");
-				viewURL.setParameter("dossierId",
-						String.valueOf(dossierId));
+				viewURL.setParameter("dossierId", String.valueOf(dossierId));
 				viewURL.setParameter("isEditDossier", String.valueOf(false));
 				viewURL.setPlid(plId);
 				viewURL.setWindowState(WindowState.NORMAL);
+
+				Dossier dossier = DossierLocalServiceUtil.getDossier(dossierId);
+
+				long plId1 = LayoutLocalServiceUtil.getFriendlyURLLayout(20182,
+						true, "/redirect-notification").getPlid();
+
+				redirectURL = PortletURLFactoryUtil.create(renderRequest,
+						WebKeys.REDIRECT_NOTIFICATION, plId1,
+						PortletRequest.RENDER_PHASE);
+
+				redirectURL
+						.setParameter("dossierId", String.valueOf(dossierId));
+				redirectURL
+						.setParameter("isEditDossier", String.valueOf(false));
+				redirectURL.setParameter("govAgencyCode",
+						dossier.getGovAgencyCode());
+				redirectURL
+						.setParameter("redirectPath",
+								"/html/portlets/dossiermgt/frontoffice/edit_dossier.jsp");
+				redirectURL.setParameter("plName", WebKeys.DOSSIER_MGT_PORTLET);
+
+				viewURL = redirectURL;
 
 			} else if (pattern.toUpperCase().contains(PortletKeys.EMPLOYEE)
 					&& paymentFileId > 0) {
@@ -156,8 +180,7 @@ public class NotificationUtils {
 		} catch (Exception e) {
 			_log.error(e);
 		}
-		
-		
+
 		return Validator.isNotNull(viewURL) ? viewURL.toString()
 				: StringPool.BLANK;
 	}
